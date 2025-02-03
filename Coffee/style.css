@@ -1,0 +1,9 @@
+
+#myVis, h1{
+    flex: 1;
+    width: 100vw;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
