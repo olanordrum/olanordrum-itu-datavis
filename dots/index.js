@@ -1,6 +1,4 @@
 
-//GOAL: can we set up a local coding environment, webpage and draw 1 shape on it?
-console.log("morn \n \n \n")
 
 var w = 500;
 var h = 500;
