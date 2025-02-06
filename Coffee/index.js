@@ -41,7 +41,7 @@ var xScale = d3.scaleBand()
 
 
 var yScale = d3.scaleLinear()
-            .domain([0, maxData + 2])
+            .domain([0, maxData + 2]) // +2 to get some excess space
             .range([height,0])
 
 
