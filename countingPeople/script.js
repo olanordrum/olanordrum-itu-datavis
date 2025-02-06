@@ -58,3 +58,11 @@ canvas
     .call(d3.axisLeft(yScale))
 
 
+
+canvas.selectAll("circle")
+                            .data(data)
+                            .join("circle")
+                                .attr("cx",(d) => xScale(d.clock)) 
+                                .attr("cy", (d) => yScale(d.people))
+                                .attr("r", 20)
+                                .attr("fill", "black")
