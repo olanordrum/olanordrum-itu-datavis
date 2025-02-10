@@ -9,6 +9,7 @@ const canvas = d3.select("#canvas")
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate("+ margin.left + "," + margin.top + ")");
+            
 
 
 const data = [
@@ -35,6 +36,7 @@ const minCount = d3.min(data.map(d => d.people))
 const hours = data.map(d => d.clock) // stringlist of all hours in data (x -axis)
 
 
+
 //scaling
 const xScale = d3.scaleBand()
                 .domain(hours)
@@ -51,12 +53,22 @@ canvas
     .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(xScale))
+    .selectAll(".domain, .tick line") //hide x axis
+    .style("stroke","none");
             
             
 canvas
     .append("g")
     .attr("transform", "translate(0, 0)") // Plasser Y-aksen til venstre
     .call(d3.axisLeft(yScale))
+    .selectAll(".tick text") //hide y axis
+    .style("fill", "none")
+
+
+canvas.selectAll(".domain, .tick line") //hide y axis
+        .style("stroke","none")
+    
+    
 
 
 const dotSize = 5; // Dot diameter
