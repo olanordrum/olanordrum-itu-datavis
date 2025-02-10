@@ -1,13 +1,12 @@
-var margin = {top:100, right:100, bottom: 40, left: 40},
+var margin = {top:150, right:100, bottom: 40, left: 65},
 width = 3000 - margin.left - margin.right,
-height = 200 - margin.top - margin.bottom;
+height = 230 - margin.top - margin.bottom;
 
 
 const canvas = d3.select("#canvas")
         .append("svg") //append svg to body
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            .style("background-color","black")
             .append("g")
             .attr("transform", "translate("+ margin.left + "," + margin.top + ")");
 
@@ -25,7 +24,6 @@ const data = [
     {clock: "06:00",people: 0} ,
     {clock: "08:00",people:1} ,
     {clock: "10:00",people: 60}, 
-    
 ]
 
 
@@ -40,13 +38,15 @@ const hours = data.map(d => d.clock) // stringlist of all hours in data (x -axis
 //scaling
 const xScale = d3.scaleBand()
                 .domain(hours)
-                .range([0,width + margin.left])
+                .range([0,width])
+                .paddingInner(1)
+                .paddingOuter(0);
 
 
 
 const yScale = d3.scaleLinear()
                 .domain([10, 10])
-                .range([10,10])
+                .range([10,10]);
 canvas
     .append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -87,11 +87,11 @@ const colorScale = d3.scaleOrdinal()
 canvas.selectAll("circle")
     .data(dotsData)
     .join("circle")
-    .attr("cx", d => xScale(d.clock) + xScale.bandwidth() + (d.index % dotsPerRow) * dotSize * 1.5 - 200) // X-posisjon basert på klokkeslett og kolonneplassering
+    .attr("cx", d => xScale(d.clock) + xScale.bandwidth() / 2 + (d.index % dotsPerRow) * dotSize * 1.5) // X-posisjon basert på klokkeslett og kolonneplassering
     .attr("cy", d => yScale(d3.max(data.filter(e => e.clock === d.clock).map(e => e.people))) - Math.floor(d.index / dotsPerRow) * dotSize * 1.5) // Y-posisjon, stablet i rader
     .attr("r", (d) => d.people > 0 ? dotSize / 2 : dotSize)
-    .attr("fill", d => d.people > 0 ? colorScale(d.clock) : "black")
-    .attr("stroke", (d) => d.people > 0 ? null : "white");
+    .attr("fill", d => d.people > 0 ? colorScale(d.clock) : "white")
+    .attr("stroke", (d) => d.people > 0 ? null : "black");
 
 
 
